@@ -1,0 +1,41 @@
+the tools:
+
+	Docker *
+	Mysql
+	PHP
+	Laravel *
+
+what is target?
+
+		we want make API router in the Laravel.
+		
+
+1.	GET 	/alive/employee								* All employees
+2.	GET 	/alive/employee/1  							* a empeloyee number 1
+3.	GET 	/alive/departments							* All Deppartments
+4.	GET 	/alive/departments/1						* a deppartment number 1
+5.	GET 	/alive/jobs									* All Jobs
+6.	GET 	/alive/jobs/min_salary/100 					* All Jobs that they have minimal 100$ salary
+7.	GET 	/alive/jobs/max_salary/100 					* All Jobs that they have maximal 100$ salary
+8.	POST 	/alive/employee								In the Body, we should send other options with them.(new deppartment & new dependent)
+9.	PUT		/alive/employee/id							In the Body, we should edit, other options (new deppartment & new dependent)
+
+
+Output Json Model:
+	
+	{
+		"data":{ OTHER's JSON MODEL },
+		"message":"STRING MESSAGE OF THE LAST ESTATUS RESULT",
+		"code": 200, // The integer result of status for example (403,501,200,201,202,000)
+		"endpoint":"employee", //The used endpoint
+		"timestamp": 12345678, //The timestamp for the validate server for calculate respons time.
+	}
+	
+Input Body Model:
+
+	{
+		"data":{},
+		"APIKEY":"hashXXXXX-XXXXX-XXXXXXX",
+		"timestamp":1234568,
+	}
+	
