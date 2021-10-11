@@ -8,21 +8,21 @@ the tools:
 what is target?
 
 		we want make API router in the Laravel.
-		
 
-1.	GET 	/alive/employee								* All employees
-2.	GET 	/alive/employee/1  							* a empeloyee number 1
-3.	GET 	/alive/departments							* All Deppartments
-4.	GET 	/alive/departments/1						* a deppartment number 1
-5.	GET 	/alive/jobs									* All Jobs
-6.	GET 	/alive/jobs/min_salary/100 					* All Jobs that they have minimal 100$ salary
-7.	GET 	/alive/jobs/max_salary/100 					* All Jobs that they have maximal 100$ salary
-8.	POST 	/alive/employee								In the Body, we should send other options with them.(new deppartment & new dependent)
-9.	PUT		/alive/employee/id							In the Body, we should edit, other options (new deppartment & new dependent)
+
+1.	GET 	/api/employee								* All employees
+2.	GET 	/api/employee/1  							* a empeloyee number 1
+3.	GET 	/api/departments							* All Deppartments
+4.	GET 	/api/departments/1						* a deppartment number 1
+5.	GET 	/api/jobs									* All Jobs
+6.	GET 	/api/jobs/min_salary/100 					* All Jobs that they have minimal 100$ salary
+7.	GET 	/api/jobs/max_salary/100 					* All Jobs that they have maximal 100$ salary
+8.	POST 	/api/employee								In the Body, we should send other options with them.(new deppartment & new dependent)
+9.	PUT		/api/employee/id							In the Body, we should edit, other options (new deppartment & new dependent)
 
 
 Output Json Model:
-	
+
 	{
 		"data":{ OTHER's JSON MODEL },
 		"message":"STRING MESSAGE OF THE LAST ESTATUS RESULT",
@@ -30,7 +30,7 @@ Output Json Model:
 		"endpoint":"employee", //The used endpoint
 		"timestamp": 12345678, //The timestamp for the validate server for calculate respons time.
 	}
-	
+
 Input Body Model:
 
 	{
@@ -38,4 +38,3 @@ Input Body Model:
 		"APIKEY":"hashXXXXX-XXXXX-XXXXXXX",
 		"timestamp":1234568,
 	}
-	
