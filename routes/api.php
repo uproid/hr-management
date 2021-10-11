@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToombaApi\EmployeeController;
 use App\Http\Controllers\ToombaApi\JobController;
 use App\Http\Controllers\ToombaApi\DepartmentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('employee')->group(function () {
     Route::get("/", [EmployeeController::class, 'employees']);
     Route::get("/{id}", [EmployeeController::class, 'employee']);
+    Route::post('/', [EmployeeController::class, 'addEmployee']);
 });
 
 Route::prefix('jobs')->group(function () {

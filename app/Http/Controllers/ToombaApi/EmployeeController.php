@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\ToombaApi;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Http\Controllers\ToombaApi;
 use App\Models\ToombaApi\EmployeeModel;
+use App\Models\ToombaApi\DependentModel;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends ApiController
 {
@@ -15,13 +18,14 @@ class EmployeeController extends ApiController
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
      */
-    public function getEmployee($id){
+    public function getEmployee($id)
+    {
         $result = EmployeeModel::find($id);
 
         $jobController = new JobController();
         $departmentController = new DepartmentController();
 
-        if($result) {
+        if ($result) {
             $result->job = $jobController->getJob($result->job_id);
             $result->department = $departmentController->getDepartment($result->department_id);
             $result->manager = $this->getEmployee($result->manager_id);
@@ -30,14 +34,15 @@ class EmployeeController extends ApiController
         return $result;
     }
 
-    public function getEmployees(){
+    public function getEmployees()
+    {
         $result = EmployeeModel::get();
 
         $jobController = new JobController();
         $departmentController = new DepartmentController();
 
-        foreach ($result as $employee){
-            if(!isset($employee->job_id))
+        foreach ($result as $employee) {
+            if (!isset($employee->job_id))
                 continue;
             $employee->job = $jobController->getJob($employee->job_id);
             $employee->department = $departmentController->getDepartment($employee->department_id);
@@ -53,15 +58,81 @@ class EmployeeController extends ApiController
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
      */
-    public function employee($id){
+    public function employee($id)
+    {
         $result = $this->getEmployee($id);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
         return $this->json($result, $status_code);
     }
 
-    public function employees(){
+    public function employees()
+    {
         $result = $this->getEmployees();
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
         return $this->json($result, $status_code);
+    }
+
+    public function addEmployee(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|max:20',
+            'last_name' => 'required|max:25',
+            'email' => 'required|email',
+            'phone_number' => 'required|min:11|numeric',
+            'hire_date' => 'required|date',
+            'salary' => 'required|regex:/^\d*(\.\d{2})?$/',
+            'department_id' => 'required|integer',
+            'manager_id' => 'integer',
+            'job_id' => 'required|integer',
+            'dependent_first_name' => 'required|max:20',
+            'dependent_last_name' => 'required|max:25',
+            'dependent_relationship' => 'required|max:25',
+        ]);
+
+        //Check Input Fields
+        if ($validator->fails())
+            return $this->json($request->all(), 403, $validator->errors()->all());
+
+        //Check exist manager_id & job_id & department_id in Database;
+        $jobController = new JobController();
+        if (!$jobController->getJob($request->job_id)) {
+            return $this->json($request->all(), 403, "Job not founded.");
+        }
+
+        $departmentController = new DepartmentController();
+        if (!$departmentController->getDepartment($request->department_id)) {
+            return $this->json($request->all(), 403, "Department not founded.");
+        }
+
+        if (isset($request->manager_id) && !is_null($request->manager_id)) {
+            if (!$this->getEmployee($request->manager_id)) {
+                return $this->json($request->all(), 403, "Manager not founded.");
+            }
+        }
+
+        $employeeId = EmployeeModel::insertGetId(
+            [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'hire_date' => new Carbon($request->hire_date),
+                'salary' => $request->salary,
+                'department_id' => $request->department_id,
+                'manager_id' => $request->manager_id ?? null,
+                'job_id' => $request->job_id,
+            ]
+        );
+
+        DependentModel::insert([
+            [
+                'first_name' => $request->dependent_first_name,
+                'last_name' => $request->dependent_last_name,
+                'relationship' => $request->dependent_relationship,
+                'employee_id' => $employeeId,
+            ]
+        ]);
+
+        return $this->employee($employeeId);
     }
 }

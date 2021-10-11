@@ -81,8 +81,16 @@ class ApiController extends Controller
      * @return \Illuminate\Http\JsonResponse
      *
      */
-    public function json($data = null, $code = 200,$message = "OK")
+    public function json($data = null, $code = 200,$message = null)
     {
+        if(!$message) {
+            $message = ["OK"];
+        }
+
+        if(!is_array($message)){
+            $message = [$message];
+        }
+
         if(is_array($data) && count($data) === 0){
             $data = null;
         }
