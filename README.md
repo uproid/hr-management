@@ -1,3 +1,33 @@
+the tools:
+
+	Docker *
+	Mysql
+	PHP
+	Laravel *		
+
+1.	GET 	/api/employee				All employees
+2.	GET 	/api/employee/1  			a empeloyee number 1
+3.	GET 	/api/deppartments			All Deppartments
+4.	GET 	/api/deppartments/1		a deppartment number 1
+5.	GET 	/api/jobs					All Jobs
+6.	GET 	/api/jobs/min_salary/100 	All Jobs that they have minimal 100$ salary
+7.	GET 	/api/jobs/max_salary/100 	All Jobs that they have maximal 100$ salary
+8.	POST 	/api/employee				In the Body, we should send other options with them.(new deppartment & new dependent)
+9.	PUT		/api/employee/id			In the Body, we should edit, other options (new deppartment & new dependent)
+
+
+Output Json Model:
+	
+	{
+		"data":{ OTHER's JSON MODEL },
+		"message":"STRING MESSAGE OF THE LAST ESTATUS RESULT",
+		"code": 200, // The integer result of status for example (403,501,200,201,202,000)
+		"endpoint":"employee", //The used endpoint
+		"timestamp": 12345678, //The timestamp for the validate server for calculate respons time.
+	}
+	
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
