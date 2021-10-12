@@ -31,6 +31,7 @@ Route::prefix('employee')->group(function () {
     Route::get("/", [EmployeeController::class, 'employees']);
     Route::get("/{id}", [EmployeeController::class, 'employee']);
     Route::post('/', [EmployeeController::class, 'addEmployee']);
+    Route::put('/{id}', [EmployeeController::class, 'editEmployee']);
 });
 
 Route::prefix('jobs')->group(function () {
