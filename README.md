@@ -7,15 +7,15 @@
 
 ## endpoints:
 
-    1.	GET    /api/employee				All employees
-    2.	GET    /api/employee/1  			An empeloyee number 1
-    3.	GET    /api/deppartments			All Deppartments
-    4.	GET    /api/deppartments/1	    	An deppartment number 1
-    5.	GET    /api/jobs					All Jobs
-    6.	GET    /api/jobs/min_salary/100 	All Jobs that they have minimal 100$ salary
-    7.	GET    /api/jobs/max_salary/100 	All Jobs that they have maximal 100$ salary
-    8.	POST   /api/employee				Add an Employee
-    9.	PUT    /api/employee/id			Update an Employee
+    1.	GET    /api/employee                All employees
+    2.	GET    /api/employee/1              An empeloyee number 1
+    3.	GET    /api/deppartments            All Deppartments
+    4.	GET    /api/deppartments/1          An deppartment number 1
+    5.	GET    /api/jobs                    All Jobs
+    6.	GET    /api/jobs/min_salary/100     All Jobs that they have minimal 100$ salary
+    7.	GET    /api/jobs/max_salary/100     All Jobs that they have maximal 100$ salary
+    8.	POST   /api/employee                Add an Employee
+    9.	PUT    /api/employee/id             Update an Employee
 
 
 ## Output Json Model:
