@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ApiToken
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request. Check the API TOKEN for change datas is valid or no. API_TOKEN should be in the '.env' file;
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure $next
