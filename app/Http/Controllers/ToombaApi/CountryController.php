@@ -10,7 +10,7 @@ use App\Models\ToombaApi\CountryModel;
 class CountryController extends ApiController
 {
     /**
-     * Read records Country from DB. if id = null then you receive all records
+     * Read one records Country from DB by id
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
@@ -23,6 +23,10 @@ class CountryController extends ApiController
         return $result;
     }
 
+    /**
+     * get list of all countries from Table
+     * @return Array model for output
+     */
     public function getCountries(){
         $result = CountryModel::get();
 
@@ -38,7 +42,7 @@ class CountryController extends ApiController
      * Read JSON format records Country from DB. if id = null then you receive all records
      *
      * @param null|integer $id
-     * @return \Illuminate\Support\Collection
+     * @return String json model for output
      */
     public function country($id = null){
         $result = $this->getCountry($id);

@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /*
  * API Routes
- * Here is where we can register routes for ons API
+ * Here is where we can register routes for ToombaAPI
  */
 
 Route::prefix('employee')->group(function () {

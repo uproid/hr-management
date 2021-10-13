@@ -10,7 +10,7 @@ use App\Models\ToombaApi\JobModel;
 class JobController extends ApiController
 {
     /**
-     * Read records Jobs from DB. if id = null then you receive all records
+     * Read records Jobs from DB.
      *
      * @param null|integer $id
      * @param integer $min_salary minimum Price range
@@ -19,10 +19,15 @@ class JobController extends ApiController
      */
     public function getJob($id)
     {
-        $result = JobModel::find($id);
-        return $result;
+        return JobModel::find($id);;
     }
 
+    /**
+     * get all list of jobs by min and max salary prices.
+     * @param int $min_salary minimum salary price
+     * @param int $max_salary maximum salary price.
+     * @return mixed
+     */
     public function getJobs($min_salary=-1,$max_salary=-1)
     {
         $query = new JobModel();
@@ -32,13 +37,11 @@ class JobController extends ApiController
         if($max_salary >= 0)
             $query->where("max_salary",'=',$max_salary);
 
-        $result = $query->get();
-
-        return $result;
+        return $query->get();;
     }
 
     /**
-     * Read JSON format records Jobs from DB. if id = null then you receive all records
+     * Read JSON format a record of Jobs from DB. then id is Number of job
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
@@ -51,6 +54,10 @@ class JobController extends ApiController
         return $this->json($result, $status_code);
     }
 
+    /**
+     * List Of Jobs from Database in Json format
+     * @return String Json Format
+     */
     public function jobs()
     {
         $result = $this->getJobs();
@@ -59,6 +66,11 @@ class JobController extends ApiController
         return $this->json($result, $status_code);
     }
 
+    /**
+     * get Json Model of Jobs from DB that min_salary value = $min_salary
+     * @param $min_salary
+     * @return String Json Format
+     */
     public function jobMinSalary($min_salary){
         $result = $this->getJobs($min_salary);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
@@ -66,6 +78,11 @@ class JobController extends ApiController
         return $this->json($result, $status_code);
     }
 
+    /**
+     * get Json Model of Jobs from DB that Max_salary value = $max_salary
+     * @param $max_salary
+     * @return String Json Format
+     */
     public function jobMaxSalary($max_salary){
         $result = $this->getJobs(-1,$max_salary);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;

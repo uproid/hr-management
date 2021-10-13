@@ -20,13 +20,16 @@ class RegionController extends ApiController
         return $result;
     }
 
+    /**
+     * get List Of all regions in DB
+     * @return Array Regions Model
+     */
     public function getRegions(){
-        $result = RegionModel::get();
-        return $result;
+        return RegionModel::get();;
     }
 
     /**
-     * Read JSON format records Region from DB. if id = null then you receive all records
+     * Read JSON format records Region from DB.
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection

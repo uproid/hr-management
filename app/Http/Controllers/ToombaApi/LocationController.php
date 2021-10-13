@@ -10,7 +10,7 @@ use App\Models\ToombaApi\LocationModel;
 class LocationController extends ApiController
 {
     /**
-     * Read records Location from DB. if id = null then you receive all records
+     * Read records Location from DB.
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
@@ -39,7 +39,7 @@ class LocationController extends ApiController
     }
 
     /**
-     * Read JSON format records Location from DB. if id = null then you receive all records
+     * Read JSON format records Location from DB.
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection

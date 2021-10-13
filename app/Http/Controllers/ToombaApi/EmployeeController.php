@@ -35,10 +35,14 @@ class EmployeeController extends ApiController
         return $result;
     }
 
+    /**
+     * get List of Dependents of a employee;
+     * @param $employee_id number of employee in employees table
+     * @return mixed
+     */
     public function getDependentsEmployee($employee_id)
     {
-        $result = DependentModel::where('employee_id', $employee_id)->get();
-        return $result;
+        return DependentModel::where('employee_id', $employee_id)->get();;
     }
 
     public function getEmployees()
@@ -60,7 +64,7 @@ class EmployeeController extends ApiController
     }
 
     /**
-     * Read JSON format records Enployee from DB. if id = null then you receive all records
+     * Read JSON format records Enployee from DB.
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
@@ -72,6 +76,10 @@ class EmployeeController extends ApiController
         return $this->json($result, $status_code);
     }
 
+    /**
+     * get json format of all employees from DB
+     * @return String Json format
+     */
     public function employees()
     {
         $result = $this->getEmployees();
@@ -79,6 +87,11 @@ class EmployeeController extends ApiController
         return $this->json($result, $status_code);
     }
 
+    /**
+     * Add new employee by all dependents of it to database.
+     * @param Request $request
+     * @return String Json format
+     */
     public function addEmployee(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -155,6 +168,12 @@ class EmployeeController extends ApiController
         return $this->employee($employeeId);
     }
 
+    /**
+     * edit a Employee by PUT method from database
+     * @param Request $request
+     * @param $employee_id
+     * @return String json Format
+     */
     public function editEmployee(Request $request, $employee_id)
     {
         $validator = Validator::make($request->all(), [

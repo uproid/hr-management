@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    /*
+     * ALL status codes for RestApi
+     */
     public $STATUS_CODE_CONTINUE = 100;
     public $STATUS_CODE_SWITCHING_PROTOCOLS = 101;
     public $STATUS_CODE_PROCESSING = 102;

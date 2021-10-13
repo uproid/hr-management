@@ -10,7 +10,7 @@ use App\Models\ToombaApi\DepartmentModel;
 class DepartmentController extends ApiController
 {
     /**
-     * Read records Department from DB. if id = null then you receive all records
+     * Read a record Department from DB by id number.
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
@@ -25,6 +25,10 @@ class DepartmentController extends ApiController
         return $result;
     }
 
+    /**
+     * get list of departments from database
+     * @return mixed array of Deparntments
+     */
     public function getDepartments(){
         $result = DepartmentModel::get();
         $locationController = new LocationController();
@@ -37,17 +41,21 @@ class DepartmentController extends ApiController
     }
 
     /**
-     * Read JSON format records Department from DB. if id = null then you receive all records
+     * Read a JSON format record of Department from DB
      *
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
      */
-    public function department($id = null){
+    public function department($id){
         $result = $this->getDepartment($id);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
         return $this->json($result, $status_code);
     }
 
+    /**
+     * get Json format from all Departments model from DB
+     * @return String JsonFormat
+     */
     public function departments(){
         $result = $this->getDepartments();
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
