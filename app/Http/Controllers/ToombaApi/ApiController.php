@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ToombaApi;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Middleware;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -83,20 +84,23 @@ class ApiController extends Controller
      */
     public function json($data = null, $code = 200,$message = null)
     {
-        if(!$message) {
-            $message = ["OK"];
-        }
-
-        if(!is_array($message)){
-            $message = [$message];
-        }
-
         if(is_array($data) && count($data) === 0){
             $data = null;
         }
 
         if($data === null){
             $code =  $this->STATUS_CODE_NOT_FOUND;
+            if(!$message){
+                $message = ["Not Found!"];
+            }
+        }
+
+        if(!$message) {
+            $message = ["OK"];
+        }
+
+        if(!is_array($message)){
+            $message = [$message];
         }
 
         $json = [

@@ -19,27 +19,3 @@ Route::get("/",function (){
     return view("welcome");
 });
 
-
-/*
- * API Routes
- * Here is where we can register routes for ons API
- */
-//
-//Route::prefix('alive')->group(function () {
-//    Route::prefix('employee')->group(function () {
-//        Route::get("/", [EmployeeController::class, 'employee']);
-//        Route::get("/{id}", [EmployeeController::class, 'employee']);
-//    });
-//
-//    Route::prefix('jobs')->group(function () {
-//        Route::get("/", [JobController::class, 'job']);
-//        Route::get("/{id}", [JobController::class, 'job']);
-//        Route::get("/max_salary/{max_price}", [JobController::class, 'jobMaxSalary']);
-//        Route::get("/min_salary/{min_price}", [JobController::class, 'jobMinSalary']);
-//    });
-//
-//    Route::prefix('departments')->group(function () {
-//        Route::get("/", [DepartmentController::class, 'department']);
-//        Route::get("/{id}", [DepartmentController::class, 'department']);
-//    });
-//});
