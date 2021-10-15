@@ -28,12 +28,12 @@ class JobController extends ApiController
      * @param int $max_salary maximum salary price.
      * @return mixed
      */
-    public function getJobs($min_salary=-1,$max_salary=-1)
+    public function getJobs($min_salary = -1, $max_salary = -1)
     {
-        if($min_salary >= 0)
-            return JobModel::where("min_salary",'=',$min_salary)->get();
-        if($max_salary >= 0)
-            return JobModel::where("max_salary",'=',$max_salary)->get();
+        if ($min_salary >= 0)
+            return JobModel::where("min_salary", '=', $min_salary)->get();
+        if ($max_salary >= 0)
+            return JobModel::where("max_salary", '=', $max_salary)->get();
 
         return JobModel::get();
     }
@@ -69,7 +69,8 @@ class JobController extends ApiController
      * @param $min_salary
      * @return String Json Format
      */
-    public function jobMinSalary($min_salary){
+    public function jobMinSalary($min_salary)
+    {
         $result = $this->getJobs($min_salary);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
 
@@ -81,8 +82,9 @@ class JobController extends ApiController
      * @param $max_salary
      * @return String Json Format
      */
-    public function jobMaxSalary($max_salary){
-        $result = $this->getJobs(-1,$max_salary);
+    public function jobMaxSalary($max_salary)
+    {
+        $result = $this->getJobs(-1, $max_salary);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
 
         return $this->json($result, $status_code);
