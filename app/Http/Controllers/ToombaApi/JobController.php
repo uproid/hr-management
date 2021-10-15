@@ -30,14 +30,12 @@ class JobController extends ApiController
      */
     public function getJobs($min_salary=-1,$max_salary=-1)
     {
-        $query = new JobModel();
-
         if($min_salary >= 0)
-            $query->where("min_salary",'=',$min_salary);
+            return JobModel::where("min_salary",'=',$min_salary)->get();
         if($max_salary >= 0)
-            $query->where("max_salary",'=',$max_salary);
+            return JobModel::where("max_salary",'=',$max_salary)->get();
 
-        return $query->get();;
+        return JobModel::get();
     }
 
     /**
