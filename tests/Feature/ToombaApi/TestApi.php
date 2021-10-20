@@ -13,7 +13,7 @@ class TestApi extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->authData = ['api_token' => '1234'];
+        $this->authData = ['api_token' => env('API_TOKEN')];
     }
 
     public static function getJsonTheme()
