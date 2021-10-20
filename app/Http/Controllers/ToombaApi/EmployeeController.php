@@ -57,6 +57,7 @@ class EmployeeController extends ApiController
                 continue;
             $employee->job = $jobController->getJob($employee->job_id);
             $employee->department = $departmentController->getDepartment($employee->department_id);
+            $employee->dependents = $this->getDependentsEmployee($employee->department_id);
             $employee->manager = $this->getEmployee($employee->manager_id);
         }
 
@@ -107,23 +108,27 @@ class EmployeeController extends ApiController
         ]);
 
         //Check Input Fields
-        if ($validator->fails())
-            return $this->json($request->all(), $this->STATUS_CODE_BAD_REQUEST, $validator->errors()->all());
-
+        if ($validator->fails()) {
+            $data = $request->all();
+            return $this->json($data, $this->STATUS_CODE_BAD_REQUEST, $validator->errors()->all());
+        }
         //Check exist manager_id & job_id & department_id in Database;
         $jobController = new JobController();
         if (!$jobController->getJob($request->job_id)) {
-            return $this->json($request->all(), $this->STATUS_CODE_BAD_REQUEST, "Job not founded.");
+            $data = $request->all();
+            return $this->json($data, $this->STATUS_CODE_BAD_REQUEST, "Job not founded.");
         }
 
         $departmentController = new DepartmentController();
         if (!$departmentController->getDepartment($request->department_id)) {
-            return $this->json($request->all(), $this->STATUS_CODE_BAD_REQUEST, "Department not founded.");
+            $data = $request->all();
+            return $this->json($data, $this->STATUS_CODE_BAD_REQUEST, "Department not founded.");
         }
 
         if (isset($request->manager_id) && !is_null($request->manager_id)) {
             if (!$this->getEmployee($request->manager_id)) {
-                return $this->json($request->all(), $this->STATUS_CODE_BAD_REQUEST, "Manager not founded.");
+                $data = $request->all();
+                return $this->json($data, $this->STATUS_CODE_BAD_REQUEST, "Manager not founded.");
             }
         }
 
