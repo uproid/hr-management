@@ -67,11 +67,10 @@ class EmployeeTest extends TestApi
     {
         $data = $this->fakeEmploye();
         $data['api_token'] = env('API_TOKEN');
-        array_merge($data,$this->authData);
-        $response = $this->postJson( '/api/employee', $data);
+        array_merge($data, $this->authData);
+        $response = $this->postJson('/api/employee', $data);
         $theme = TestApi::getJsonTheme();
         $theme['data'] = self::getJsonTheme();
-
         $response->assertJsonStructure($theme)
             ->assertStatus(200);
     }
@@ -80,8 +79,8 @@ class EmployeeTest extends TestApi
     {
         $data = $this->fakeEmploye();
         $data['api_token'] = env('API_TOKEN');
-        array_merge($data,$this->authData);
-        $response = $this->putJson( '/api/employee/101', $data);
+        array_merge($data, $this->authData);
+        $response = $this->putJson('/api/employee/101', $data);
         $theme = TestApi::getJsonTheme();
         $theme['data'] = self::getJsonTheme();
 
@@ -93,20 +92,23 @@ class EmployeeTest extends TestApi
     {
         $data = $this->fakeEmployeError();
         $data['api_token'] = env('API_TOKEN');
-        array_merge($data,$this->authData);
-        $response = $this->putJson( '/api/employee/10000', $data);
+        array_merge($data, $this->authData);
+        $response = $this->putJson('/api/employee/10000', $data);
         $theme = TestApi::getJsonTheme();
 
-        $response->assertJsonStructure($theme)
-            ->assertStatus(400);
+        $response->assertJsonStructure($theme);
+        if ($response->getStatusCode() === 400) {
+            $errors = json_encode($response->baseResponse->original['message'],JSON_PRETTY_PRINT);
+            echo "Errors Messages: $errors";
+        }
     }
 
     public function test_employee_add_new_error()
     {
         $data = $this->fakeEmployeError();
         $data['api_token'] = env('API_TOKEN');
-        array_merge($data,$this->authData);
-        $response = $this->postJson( '/api/employee', $data);
+        array_merge($data, $this->authData);
+        $response = $this->postJson('/api/employee', $data);
         $theme = TestApi::getJsonTheme();
         $response->assertJsonStructure($theme)
             ->assertStatus(400);
@@ -121,8 +123,8 @@ class EmployeeTest extends TestApi
             "phone_number" => $this->faker->e164PhoneNumber,
             "hire_date" => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             "salary" => $this->faker->numberBetween($min = 1000, $max = 9000) . ".00",
-            "department_id" => $this->faker->randomDigit,
-            "job_id" => $this->faker->randomDigit,
+            "department_id" => $this->faker->unique()->numberBetween(1, 10),
+            "job_id" => $this->faker->unique()->numberBetween(1, 10),
             "dependents" => [
                 [
                     "first_name" => $this->faker->firstNameFemale,
@@ -141,7 +143,7 @@ class EmployeeTest extends TestApi
             "phone_number" => $this->faker->e164PhoneNumber,
             "hire_date" => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             "salary" => $this->faker->numberBetween($min = 1000, $max = 9000) . ".00",
-            "department_id" => $this->faker->randomDigit,
+            "department_id" => $this->faker->unique()->numberBetween(1, 10),
             "dependents" => [
                 [
                     "last_name" => $this->faker->lastName,

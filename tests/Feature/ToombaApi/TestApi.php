@@ -16,6 +16,8 @@ class TestApi extends TestCase
         $this->authData = ['api_token' => env('API_TOKEN')];
     }
 
+
+
     public static function getJsonTheme()
     {
         return [
