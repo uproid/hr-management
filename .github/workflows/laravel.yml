@@ -30,7 +30,7 @@ jobs:
           WWWUSER: 1000
           APP_PORT: 8000
           API_TOKEN: 1234
-          DB_DATABASE: hr-management
+          DB_DATABASE: hr_management
           DB_USERNAME: root
           MYSQL_ROOT_PASSWORD: root
         run: |
