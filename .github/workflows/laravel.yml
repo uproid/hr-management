@@ -40,5 +40,4 @@ jobs:
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.MYSQL_ROOT_PASSWORD }}
           php artisan migrate
           php artisan db:seed ToombaApiDataFake
-      - name: Testing Unit
-        run: php artisan test 
+          php artisan test
