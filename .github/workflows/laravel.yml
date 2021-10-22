@@ -41,6 +41,7 @@ jobs:
       - name: Migrations
         run: |
           php artisan migrate:refresh
+          php artisan db:seed ToombaApiDataFake
       - name: Testing Unit
         run: |
           php artisan test
