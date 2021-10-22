@@ -45,11 +45,10 @@ jobs:
           mysql --host ${{env.DB_HOST}} --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
       - name: Migrations
         run: |
-          composer install
+          php artisan migrate
           php artisan cache:clear
           php artisan config:cache
-          php artisan config:clear   
-          php artisan migrate
+          php artisan config:clear
           php artisan up
           php artisan migrate:refresh
           php artisan db:seed ToombaApiDataFake
