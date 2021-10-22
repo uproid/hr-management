@@ -45,6 +45,7 @@ jobs:
           mysql --host ${{env.DB_HOST}} --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
       - name: Migrations
         run: |
+          php artisan env
           php artisan cache:clear
           php artisan config:cache
           php artisan config:clear   
