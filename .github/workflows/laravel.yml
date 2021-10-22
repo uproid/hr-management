@@ -37,5 +37,7 @@ jobs:
         run: |
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.MYSQL_ROOT_PASSWORD }}
-          php artisan migrate
-          vendor/phpunit/phpunit/phpunit
+      - name: Testing Unit
+        run: php artisan migrate
+      - name: Testing Unit
+        run: vendor/phpunit/phpunit/phpunit
