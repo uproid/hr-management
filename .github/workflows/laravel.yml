@@ -47,6 +47,8 @@ jobs:
           php artisan optimize:clear
           php artisan cache:clear
           php artisan config:clear
+          php artisan down
+          php artisan up
           php artisan migrate:refresh
           php artisan db:seed ToombaApiDataFake
       - name: Testing Unit
