@@ -32,8 +32,9 @@ jobs:
           API_TOKEN: 1234
           DB_DATABASE: hr-management
           DB_USERNAME: root
+          MYSQL_ROOT_PASSWORD: root
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }}
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.MYSQL_ROOT_PASSWORD }}
           php artisan migrate
           vendor/phpunit/phpunit/phpunit
