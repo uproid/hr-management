@@ -35,7 +35,7 @@ jobs:
           DB_DATABASE: hr_management
           DB_USERNAME: root
           DB_PASSWORD: root
-          DB_HOST: mysql
+          DB_HOST: 127.0.0.1
         run: |
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
@@ -45,7 +45,7 @@ jobs:
           mysql --host ${{env.DB_HOST}} --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
       - name: Migrations
         run: |
-          php artisan migrate
+          php artisan migrate --env=testing --seed --force
           php artisan cache:clear
           php artisan config:cache
           php artisan config:clear
