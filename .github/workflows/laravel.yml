@@ -29,15 +29,18 @@ jobs:
           WWWGROUP: 1000
           WWWUSER: 1000
           APP_PORT: 8000
+          DB_PORT: 3306
           API_TOKEN: 1234
           DB_CONNECTION: mysql
           DB_DATABASE: hr_management_db
           DB_USERNAME: root
-          MYSQL_ROOT_PASSWORD: toor
-          DB_PASSWORD: toor
+          MYSQL_ROOT_PASSWORD: root
+          DB_PASSWORD: root
         run: |
+          sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
-          mysql -uroot -h127.0.0.1 -ptoor -e 'CREATE DATABASE IF NOT EXISTS hr_management_db;'
+          mysql --version
+          mysql --host 127.0.0.1 --port 3306 -uuser -psecret -e "SHOW DATABASES"
       - name: Migrations
         run: |
           php artisan migrate:refresh
