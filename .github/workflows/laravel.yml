@@ -36,6 +36,7 @@ jobs:
           DB_USERNAME: root
           MYSQL_ROOT_PASSWORD: root
           DB_PASSWORD: root
+          DB_HOST: mysql
         run: |
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
