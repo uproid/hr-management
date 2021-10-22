@@ -33,11 +33,11 @@ jobs:
           DB_CONNECTION: mysql
           DB_DATABASE: hr_management_db
           DB_USERNAME: root
-          MYSQL_ROOT_PASSWORD: management_pass
-          DB_PASSWORD: management_pass
+          MYSQL_ROOT_PASSWORD: toor
+          DB_PASSWORD: toor
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
+          mysql -uroot -h127.0.0.1 -ptoor -e 'CREATE DATABASE IF NOT EXISTS hr_management_db;'
       - name: Migrations
         run: |
           php artisan migrate:refresh
