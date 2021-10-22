@@ -36,7 +36,6 @@ jobs:
           DB_USERNAME: root
           MYSQL_ROOT_PASSWORD: root
           DB_PASSWORD: root
-          DB_HOST: localhost
         run: |
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
@@ -45,6 +44,10 @@ jobs:
           mysql --host 127.0.0.1 --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SHOW DATABASES"
       - name: Migrations
         run: |
+          php artisan optimize:clear
+          php artisan cache:clear
+          php artisan config:clear
+          php artisan serve
           php artisan migrate:refresh
           php artisan db:seed ToombaApiDataFake
       - name: Testing Unit
