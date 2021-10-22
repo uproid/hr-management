@@ -43,9 +43,9 @@ jobs:
           mysql -e 'CREATE DATABASE ${{env.DB_DATABASE}}' -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}}
           mysql --host ${{env.DB_HOST}} --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SHOW DATABASES"
           mysql --host ${{env.DB_HOST}} --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
-          php artisan env
       - name: Migrations
         run: |
+          composer install
           php artisan cache:clear
           php artisan config:cache
           php artisan config:clear   
