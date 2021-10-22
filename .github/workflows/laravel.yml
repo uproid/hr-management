@@ -35,7 +35,7 @@ jobs:
           DB_DATABASE: hr_management
           DB_USERNAME: root
           DB_PASSWORD: root
-          DB_HOST: 0.0.0.0
+          DB_HOST: 127.0.0.1
         run: |
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
