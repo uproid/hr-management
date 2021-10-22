@@ -45,7 +45,7 @@ class EmployeeTest extends TestApi
 
     public function test_employee_get_one_by_id()
     {
-        $response = $this->json('GET', '/api/employee/120', $this->authData);
+        $response = $this->json('GET', '/api/employee/1', $this->authData);
         $theme = TestApi::getJsonTheme();
         $theme['data'] = self::getJsonTheme();
 
@@ -80,7 +80,7 @@ class EmployeeTest extends TestApi
         $data = $this->fakeEmploye();
         $data['api_token'] = env('API_TOKEN');
         array_merge($data, $this->authData);
-        $response = $this->putJson('/api/employee/101', $data);
+        $response = $this->putJson('/api/employee/1', $data);
         $theme = TestApi::getJsonTheme();
         $theme['data'] = self::getJsonTheme();
 
@@ -97,9 +97,8 @@ class EmployeeTest extends TestApi
         $theme = TestApi::getJsonTheme();
 
         $response->assertJsonStructure($theme);
-        if ($response->getStatusCode() === 400) {
-            $errors = json_encode($response->baseResponse->original['message'],JSON_PRETTY_PRINT);
-            echo "Errors Messages: $errors";
+        if ($response->getStatusCode() !== 200) {
+            $this->echoMessages(__METHOD__,$response);
         }
     }
 
@@ -110,8 +109,10 @@ class EmployeeTest extends TestApi
         array_merge($data, $this->authData);
         $response = $this->postJson('/api/employee', $data);
         $theme = TestApi::getJsonTheme();
-        $response->assertJsonStructure($theme)
-            ->assertStatus(400);
+        $response->assertJsonStructure($theme);
+        if ($response->getStatusCode() !== 200) {
+            $this->echoMessages(__METHOD__,$response);
+        }
     }
 
     private function fakeEmploye()

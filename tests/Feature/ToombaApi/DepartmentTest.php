@@ -22,15 +22,7 @@ class DepartmentTest extends TestApi
                 "city",
                 "state_province",
                 "country_id",
-                "country" => [
-                    "id",
-                    "country_name",
-                    "region_id",
-                    "region" => [
-                        "id",
-                        "region_name",
-                    ]
-                ]
+                "country"
             ]
         ];
     }
@@ -41,8 +33,12 @@ class DepartmentTest extends TestApi
         $theme = TestApi::getJsonTheme();
         $theme['data'] = self::getJsonTheme();
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($theme);
+        if ($response->getStatusCode() !== 200) {
+            $this->echoMessages(__METHOD__, $response);
+        } else {
+            $response->assertStatus(200)
+                ->assertJsonStructure($theme);
+        }
     }
 
     public function test_department_get_all()
@@ -50,8 +46,10 @@ class DepartmentTest extends TestApi
         $response = $this->json('GET', '/api/departments', $this->authData);
         $theme = TestApi::getJsonTheme();
         $theme['data'] = ['*' => self::getJsonTheme()];
-
-        $response->assertStatus(200)
-            ->assertJsonStructure($theme);
+        if ($response->getStatusCode() !== 200) {
+            $this->echoMessages(__METHOD__, $response);
+        } else {
+            $response->assertJsonStructure($theme);
+        }
     }
 }

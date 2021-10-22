@@ -14,7 +14,7 @@ class ToombaApiCreateCountriesTable extends Migration
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
-            $table->id();
+            $table->char('id', 2)->primary();
             $table->string('country_name',40)->nullable();
             $table->integer('region_id',);
         });

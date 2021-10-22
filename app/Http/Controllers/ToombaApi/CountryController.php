@@ -15,11 +15,13 @@ class CountryController extends ApiController
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
      */
-    public function getCountry($id){
+    public function getCountry($id)
+    {
         $result = CountryModel::find($id);
-        $regionController = new RegionController();
-        $result->region = $regionController->getRegion($result->region_id);
-
+        if ($result) {
+            $regionController = new RegionController();
+            $result['region'] = $regionController->getRegion($result->region_id);
+        }
         return $result;
     }
 
@@ -27,12 +29,13 @@ class CountryController extends ApiController
      * get list of all countries from Table
      * @return Array model for output
      */
-    public function getCountries(){
+    public function getCountries()
+    {
         $result = CountryModel::get();
 
         $regionController = new RegionController();
-        foreach ($result as $country){
-            $country->region = $regionController->getRegion($country->region_id);
+        foreach ($result as $country) {
+            $result['region'] = $regionController->getRegion($country->region_id);
         }
 
         return $result;
@@ -44,7 +47,8 @@ class CountryController extends ApiController
      * @param null|integer $id
      * @return String json model for output
      */
-    public function country($id = null){
+    public function country($id = null)
+    {
         $result = $this->getCountry($id);
         $status_code = is_array($result) && count($result) == 0 ? $this->STATUS_CODE_NOT_FOUND : $this->STATUS_CODE_OK;
         return $this->json($result, $status_code);

@@ -24,20 +24,10 @@ class JobsTest extends TestApi
 
         $response = $this->json('GET', '/api/jobs/1', $this->authData);
 
-        $formData = [
-            'data' => [
-                "id" => 1,
-                "job_title" => "Public Accountant",
-                "min_salary" => "4200.00",
-                "max_salary" => "9000.00"
-            ]
-        ];
-
         $formTheme = TestApi::getJsonTheme();
         $formTheme['data'] = self::getJsonTheme();
 
         $response->assertStatus(200)
-            ->assertJson($formData)
             ->assertJsonStructure($formTheme);
     }
 

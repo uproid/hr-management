@@ -24,4 +24,9 @@ class TestApi extends TestCase
             'data', 'message' => [], 'code', 'timestamp'
         ];
     }
+
+    protected function echoMessages($title,$response){
+        $body = $response->baseResponse->original;
+        echo "\n\n".$title."->$body[code]:".json_encode($body['message'],JSON_PRETTY_PRINT)."\n\n";
+    }
 }
