@@ -32,7 +32,7 @@ jobs:
           DB_PORT: 3306
           API_TOKEN: 1234
           DB_CONNECTION: mysql
-          DB_DATABASE: hr_management_db
+          DB_DATABASE: hr_management
           DB_USERNAME: root
           MYSQL_ROOT_PASSWORD: root
           DB_PASSWORD: root
@@ -40,8 +40,8 @@ jobs:
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
           mysql --version
-          mysql -e 'CREATE DATABASE hr_management_db' -uroot -proot
-          mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "SHOW DATABASES"
+          mysql -e 'CREATE DATABASE ${{env.DB_DATABASE}}' -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}}
+          mysql --host 127.0.0.1 --port ${{env.3306}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SHOW DATABASES"
       - name: Migrations
         run: |
           php artisan migrate:refresh
