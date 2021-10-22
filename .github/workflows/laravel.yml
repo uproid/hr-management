@@ -34,15 +34,14 @@ jobs:
           DB_CONNECTION: mysql
           DB_DATABASE: hr_management
           DB_USERNAME: root
-          MYSQL_ROOT_PASSWORD: root
-          DB_PASSWORD: root
-          DB_HOST: 0.0.0.0
+          DB_HOST: 127.0.0.1
         run: |
           sudo apt-get install -y mysql-client
           sudo /etc/init.d/mysql start
           mysql --version
-          mysql -e 'CREATE DATABASE ${{env.DB_DATABASE}}' -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}}
-          mysql --host 127.0.0.1 --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SHOW DATABASES"
+          mysql -e 'CREATE DATABASE ${{env.DB_DATABASE}}' -u${{env.DB_USERNAME}} -p
+          mysql --host 127.0.0.1 --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p -e "SHOW DATABASES"
+          mysql SELECT user FROM mysql.user;
       - name: Migrations
         run: |
           php artisan up
