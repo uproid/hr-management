@@ -42,9 +42,13 @@ jobs:
           mysql --version
           mysql -e 'CREATE DATABASE ${{env.DB_DATABASE}}' -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}}
           mysql --host 127.0.0.1 --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SHOW DATABASES"
-          mysql --host 127.0.0.1 --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
+          mysql --host localhost --port ${{env.DB_PORT}} -u${{env.DB_USERNAME}} -p${{env.DB_PASSWORD}} -e "SELECT user FROM mysql.user"
       - name: Migrations
         run: |
+          php artisan cache:clear
+          php artisan config:cache
+          php artisan config:clear   
+          php artisan migrate
           php artisan up
           php artisan migrate:refresh
           php artisan db:seed ToombaApiDataFake
