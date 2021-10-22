@@ -32,7 +32,7 @@ jobs:
           API_TOKEN: 1234
           DB_CONNECTION: mysql
           DB_DATABASE: hr_management_db
-          DB_USERNAME: management_user
+          DB_USERNAME: root
           MYSQL_ROOT_PASSWORD: management_pass
           DB_PASSWORD: management_pass
         run: |
