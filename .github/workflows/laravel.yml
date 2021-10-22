@@ -49,4 +49,4 @@ jobs:
           php artisan db:seed ToombaApiDataFake
       - name: Testing Unit
         run: |
-          /vendore/
+          php artisan test
