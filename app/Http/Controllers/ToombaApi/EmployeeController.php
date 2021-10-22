@@ -18,7 +18,7 @@ class EmployeeController extends ApiController
      * @param null|integer $id
      * @return \Illuminate\Support\Collection
      */
-    public function getEmployee($id)
+    public function getEmployee($id,$show_manager = true)
     {
         $result = EmployeeModel::find($id);
 
@@ -28,7 +28,7 @@ class EmployeeController extends ApiController
         if ($result) {
             $result->job = $jobController->getJob($result->job_id);
             $result->department = $departmentController->getDepartment($result->department_id);
-            $result->manager = $result->manager_id !== $id ? $this->getEmployee($result->manager_id) : null;
+            $result->manager = $result->manager_id !== $id && $show_manager? $this->getEmployee($result->manager_id,false) : null;
             $result->dependents = $this->getDependentsEmployee($result->id);
         }
 
@@ -58,7 +58,7 @@ class EmployeeController extends ApiController
             $employee->job = $jobController->getJob($employee->job_id);
             $employee->department = $departmentController->getDepartment($employee->department_id);
             $employee->dependents = $this->getDependentsEmployee($employee->department_id);
-            $employee->manager = $employee->manager_id !== $employee->id ? $this->getEmployee($employee->manager_id) : null;
+            $employee->manager = $employee->manager_id !== $employee->id ? $this->getEmployee($employee->manager_id,false) : null;
         }
 
         return $result;
