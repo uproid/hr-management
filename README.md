@@ -3,7 +3,7 @@
 	Docker *
 	Mysql
 	PHP
-	Laravel *		
+	Laravel [![Laravel](https://github.com/uproid/hr-management/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/uproid/hr-management/actions/workflows/laravel.yml)	
 
 ## endpoints:
 
