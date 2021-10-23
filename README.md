@@ -1,9 +1,10 @@
+[![Laravel](https://github.com/uproid/hr-management/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/uproid/hr-management/actions/workflows/laravel.yml)
 ## the tools:
 
 	Docker *
 	Mysql
 	PHP
-	Laravel [![Laravel](https://github.com/uproid/hr-management/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/uproid/hr-management/actions/workflows/laravel.yml)	
+	Laravel 
 
 ## endpoints:
 
