@@ -16,6 +16,6 @@ use App\Http\Controllers\ToombaApi\DepartmentController;
 */
 
 Route::get("/",function (){
-    return view("welcome");
+    return view("frontend.index");
 });
 
